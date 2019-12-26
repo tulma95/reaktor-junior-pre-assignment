@@ -4,6 +4,8 @@ const cors = require('cors')
 const app = express()
 const { PORT } = require('./utils/config')
 
+app.use(express.static(path.resolve(__dirname, '../react-frontend/build')));
+
 app.use(cors())
 
 app.get('/', (req, res) => {
