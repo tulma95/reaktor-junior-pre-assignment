@@ -2,10 +2,14 @@
   "name": "reaktorihaaste",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "10.x"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon app.js",
+    "start": "node app.js",
     "build": "cd react-frontend/ && npm install && npm run build"
   },
   "cacheDirectories": [
