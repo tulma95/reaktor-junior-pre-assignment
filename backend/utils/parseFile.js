@@ -2,8 +2,7 @@ const fs = require('fs')
 const path = require('path');
 
 
-
-const data = fs.readFileSync('./statustest.txt', 'utf8').split('\n\n')
+const data = fs.readFileSync(path.resolve(__dirname, '../statustest.txt'), 'utf8').split('\n\n')
 
 const parsePackageData = () => {
   let packages = []
