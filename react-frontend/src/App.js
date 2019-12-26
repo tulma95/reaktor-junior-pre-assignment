@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const packages = await axios.get('http://localhost:3003/')
+      const packages = await axios.get('/api/')
       setPackages(packages.data)
     }
     fetchData()
@@ -20,7 +20,7 @@ const App = () => {
   const handleChange = async (name) => {
     try {
       const id = packages.find(e => e.name === name).id
-      const res = await axios.get(`/${id}`)
+      const res = await axios.get(`api/${id}`)
       setChosenPackage(res.data)
     } catch (error) {
       setMessage(`No package ${name} found`)
