@@ -5,10 +5,10 @@
   "engines": {
     "node": "10.x"
   },
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon app.js",
+    "watch": "nodemon backend/index.js",
     "start": "node backend",
     "build": "cd react-frontend/ && npm install && npm run build"
   },

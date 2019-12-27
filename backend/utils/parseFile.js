@@ -2,41 +2,57 @@ const fs = require('fs')
 const path = require('path');
 
 
-const data = fs.readFileSync(path.resolve(__dirname, '../statustest.txt'), 'utf8').split('\n\n')
+const PackagesData = fs.readFileSync(path.resolve(__dirname, '../statustest.txt'), 'utf8')
+  .split('\n\n')
 
 const parsePackageData = () => {
   let packages = []
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < PackagesData.length; i++) {
     const id = i
     let name = ''
-    let description
+    let description = ''
     let dependencies = []
-    let packageLines = data[i].split('\n').map(line => line.split(': '))
+    let packageLines = PackagesData[i]
+      .split('\n')
+      .map(line => line.split(': '))
 
 
-    for (let j = 0; j < packageLines.length; j++) {
-      if (packageLines[j][0] === 'Package') {
-        name = packageLines[j][1].trim()
-      } else if (packageLines[j][0] === 'Description') {
-        description = parseDescription(packageLines, j)
-      } else if (packageLines[j][0] === 'Depends') {
-        dependencies = packageLines[j][1].split(',')
-          .map(dependency => {
-            const moddedDependancy = dependency.replace(/\(.*\)/, " ")
-            return moddedDependancy.trim()
-          })
+    for (let packageLine = 0; packageLine < packageLines.length; packageLine++) {
+
+      const command = packageLines[packageLine][0]
+
+      switch (command) {
+        case 'Package':
+          name = packageLines[packageLine][1].trim()
+          break;
+        case 'Description':
+          description = parseDescription(packageLines, packageLine)
+          break;
+        case 'Depends':
+          dependencies = parseDependencies(packageLines, packageLine)
+        default:
+          break;
       }
     }
     const newPackage = {
       id,
       name,
       description,
-      dependencies: Array.from(new Set(dependencies))
+      dependencies
     }
     packages[id] = newPackage
   }
   return packages
+}
+
+const parseDependencies = (packageLines, row) => {
+  const dependencies = packageLines[row][1].split(',')
+    .map(dependency => {
+      const dependancyWithoutVersion = dependency.replace(/\(.*\)/, " ")
+      return dependancyWithoutVersion.trim()
+    })
+  return Array.from(new Set(dependencies))
 }
 
 const parseDescription = (packageLines, row) => {
