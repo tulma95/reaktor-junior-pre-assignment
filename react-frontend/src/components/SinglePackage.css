@@ -3,7 +3,7 @@
   border: 5px solid pink;
   text-align: center;
   background-color: aliceblue;
-  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .Description {
@@ -11,12 +11,16 @@
 }
 
 .Depends {
-  grid-auto-columns: auto;
-  display: inline-block;
+  display: grid;
+  padding: 30px;
+  grid-gap: 10px;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .Dependants {
-  grid-auto-columns: auto;
-  display: inline-block;
-  vertical-align: middle;
+  display: grid;
+  padding: 30px;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }

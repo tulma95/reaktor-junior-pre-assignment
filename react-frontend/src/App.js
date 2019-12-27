@@ -43,7 +43,7 @@ const App = () => {
               <div className='PackageEntry'
                 key={pack.id}
                 onClick={() => handleChange(pack.name)} >
-                <span>{pack.name}</span>
+                {pack.name}
               </div>
             ))}
         </div>
@@ -53,7 +53,8 @@ const App = () => {
             packages={packages}
             setChosenPackage={handleChange}
             chosenPackage={chosenPackage} />
-        </div>}
+        </div>
+      }
     </div >
   );
 }

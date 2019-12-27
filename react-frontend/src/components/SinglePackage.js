@@ -23,14 +23,14 @@ const SinglePackage = ({ chosenPackage, setChosenPackage, packages }) => {
 
       <h2>Dependencies</h2>
 
-      <ul className='Depends'>
+      <div className='Depends'>
         {chosenPackage.dependencies.map(name => (
           <Depend key={name}
             handleClick={handleClick}
             name={name}
             packages={packages} />
         ))}
-      </ul>
+      </div>
 
       <h2>Dependants</h2>
       <ul className='Dependants'>

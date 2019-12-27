@@ -2,16 +2,20 @@ import React from 'react'
 import './Depend.css'
 
 const Depend = ({ name, handleClick, packages }) => {
+
   const alternates = () => {
     const splits = name.split('|')
       .map(e => e.trim())
-
     const pack = packages.find(pack => {
       return splits.includes(pack.name)
     })
     if (pack) {
       console.log(splits.filter(e => e !== pack.name));
-      return <li className='Depend' onClick={() => handleClick(pack.name)} key={pack.name}>{pack.name}</li>
+      return (
+        <div className='Depend' onClick={() => handleClick(pack.name)} key={pack.name}>
+          {pack.name}
+        </div>
+      )
     } else {
       console.log(splits);
       return <div></div>
@@ -22,7 +26,9 @@ const Depend = ({ name, handleClick, packages }) => {
   if (name.includes('|')) {
     return alternates()
   } else {
-    return <li className='Depend' onClick={() => handleClick(name)} key={name}>{name}</li>
+    return <div className='Depend' onClick={() => handleClick(name)} key={name}>
+      {name}
+    </div>
   }
 }
 export default Depend
