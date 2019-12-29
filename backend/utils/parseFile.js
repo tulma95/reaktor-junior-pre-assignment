@@ -8,7 +8,7 @@ const parsePackageData = (fileName) => {
     .map(pack => {
       const name = parseName(pack)
       const description = parseDescription(pack)
-      const dependencies = parseDependencies(pack)
+      const dependencies = Array.from(new Set(parseDependencies(pack)))
       return {
         name,
         description,
@@ -28,13 +28,17 @@ const parseDependencies = (pack) => {
   }
   return dependencies[0]
     .split(',')
-    .map(depend => depend.replace(/ \([^a-zA-Z]+\)/, '').trim())
-
-
+    .map(depend => {
+      if (depend.includes('|')) {
+        return depend.split('|')
+          .map(e => e.replace(/ \(.*\)/, '').trim())
+          .join(' | ')
+      }
+      return depend.replace(/ \(.*\)/, '').trim()
+    })
 }
 
 const parseDescription = (pack) => {
-
   const splits = pack.split(': ')
   if (splits[splits.length - 2].includes('Description')) {
     return splits[splits.length - 1]

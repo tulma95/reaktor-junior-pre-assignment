@@ -1,62 +1,53 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import {
+  Route,
+  Link
+} from "react-router-dom";
 import SinglePackage from './components/SinglePackage'
-import './App.css'
-const axios = require('axios')
+import PackageGrid from './components/PackageGrid'
 
 const App = () => {
   const [packages, setPackages] = useState([])
-  const [chosenPackage, setChosenPackage] = useState(null)
   const [message, setMessage] = useState(null)
-
   useEffect(() => {
-    async function fetchData() {
-      const packages = await axios.get('/api/')
-      setPackages(packages.data)
-    }
     fetchData()
   }, [])
 
-  const handleChange = async (name) => {
-    try {
-      const id = packages.find(e => e.name === name).id
-      const res = await axios.get(`api/${id}`)
-      setChosenPackage(res.data)
-    } catch (error) {
-      setMessage(`No package ${name} found`)
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000);
-    }
-
+  const fetchData = async () => {
+    const res = await fetch("http://localhost:3003/api", {
+      headers: {
+        "accepts": "application/json"
+      }
+    })
+    const data = await res.json()
+    setPackages(data)
   }
 
-  return (
-    <div >
-      <button className='Button' onClick={() => setChosenPackage(null)}>Back to index</button>
-      {message && <div className='Message'>{message}</div>}
 
-      {chosenPackage === null ?
-        <div className='PackageList'>
-          {packages.sort((e1, e2) => e1.name < e2.name ? -1 : 1)
-            .map(pack => (
-              <div className='PackageEntry'
-                key={pack.id}
-                onClick={() => handleChange(pack.name)} >
-                {pack.name}
-              </div>
-            ))}
-        </div>
-        :
+  return (
+    <div className="App">
+
+      <div className="Header">
+        <Link to='/'>
+          <button>
+            Back to index
+            </button>
+        </Link>
+        <h2>Package viewer</h2>
         <div>
-          <SinglePackage
-            packages={packages}
-            setChosenPackage={handleChange}
-            chosenPackage={chosenPackage} />
+          {message}
         </div>
-      }
+      </div>
+
+      <Route exact path="/" >
+        <PackageGrid packages={packages} setMessage={setMessage} />
+      </Route>
+      <Route path="/:name">
+        <SinglePackage packages={packages} setMessage={setMessage} />
+      </Route>
     </div >
-  );
+  )
 }
 
 export default App;

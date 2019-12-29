@@ -18,7 +18,7 @@ app.get('/api', (req, res) => {
 app.get('/api/:name', (req, res) => {
   const name = req.params.name
   const package = packages.find(e => e.name === name)
-  try {
+  if (package) {
     const dependants = packages
       .filter(package => package.dependencies.includes(name))
       .map(package => package.name)
@@ -28,7 +28,7 @@ app.get('/api/:name', (req, res) => {
       dependants: Array.from(new Set(dependants))
     }
     res.status(200).json(responsePackage)
-  } catch (error) {
+  } else {
     res.status(404).send('No package found with given id')
   }
 })

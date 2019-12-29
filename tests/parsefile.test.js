@@ -95,7 +95,6 @@ Description: X11 authorisation library
  git://anongit.freedesktop.org/git/xorg/lib/libXau
 `
     expect(parseDescription(testPack)).toMatch(expectedDesc)
-
   })
 })
 
