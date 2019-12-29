@@ -13,7 +13,7 @@ const SinglePackage = ({ packages, setMessage }) => {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`http://localhost:3003/api/${name}`, {
+        const res = await fetch(`/api/${name}`, {
           headers: {
             "accepts": "application/json"
           }

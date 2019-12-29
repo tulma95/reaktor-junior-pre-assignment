@@ -1,4 +1,4 @@
-const { parseDescription, parseDependencies, parseName } = require('../backend/utils/parseFile')
+const { parseDescription, parseDependencies, parseName } = require('../utils/parseFile')
 
 const pack =
   `

@@ -15,7 +15,7 @@ const App = () => {
   }, [])
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:3003/api", {
+    const res = await fetch("/api", {
       headers: {
         "accepts": "application/json"
       }
