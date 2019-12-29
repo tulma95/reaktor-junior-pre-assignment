@@ -1,13 +1,3 @@
-Package: findutils
-Essential: yes
-Status: install ok installed
-Multi-Arch: foreign
-Priority: required
-Section: utils
-Installed-Size: 832
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-Architecture: amd64
-Version: 4.4.2-4ubuntu1
 Package: libws-commons-util-java
 Status: install ok installed
 Priority: optional
@@ -16761,12 +16751,3 @@ Description: Emulate IO::File interface for in-core strings
  format_page_number, format_lines_per_page, format_lines_left,
  format_name, format_top_name.
 Original-Maintainer: Debian Perl Group <pkg-perl-maintainers@lists.alioth.debian.org>
-Pre-Depends: libc6 (>= 2.7)
-Suggests: mlocate | locate
-Description: utilities for finding files--find, xargs
- GNU findutils provides utilities to find files meeting specified
- criteria and perform various actions on the files which are found.
- This package contains 'find' and 'xargs'; however, 'locate' has
- been split off into a separate package.
-Homepage: http://savannah.gnu.org/projects/findutils/
-Original-Maintainer: Andreas Metzler <ametzler@debian.org>
