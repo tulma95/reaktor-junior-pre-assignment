@@ -5,13 +5,14 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-
-let PATH = fs.existsSync('/var/lib/dpkg/status') ?
-  '/var/lib/dpkg/status' : path.resolve(__dirname, `../statustest.txt`)
-
+let PATH
 if (process.env.HEROKU === 1) {
   PATH = path.resolve(__dirname, `../statustest.txt`)
+} else {
+  path = fs.existsSync('/var/lib/dpkg/status') ?
+    '/var/lib/dpkg/status' : path.resolve(__dirname, `../statustest.txt`)
 }
+
 
 
 let PORT = process.env.PORT
