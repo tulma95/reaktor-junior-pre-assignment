@@ -1,11 +1,16 @@
-const { parsePackageData } = require('./utils/parseFile')
+const {
+  parsePackageData
+} = require('./utils/parseFile')
 const express = require('express')
 const cors = require('cors')
 const path = require('path');
 const app = express()
-const { PORT } = require('./utils/config')
+const {
+  PORT,
+  PATH
+} = require('./utils/config')
 
-const packages = parsePackageData('statustest.txt')
+const packages = parsePackageData(PATH)
 
 app.use(express.static(path.resolve(__dirname, '../react-frontend/build')));
 
