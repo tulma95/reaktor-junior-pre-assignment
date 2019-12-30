@@ -3,21 +3,26 @@ const path = require('path');
 
 
 const parsePackageData = (fileName) => {
-  return fs
-    .readFileSync(fileName, 'utf8')
-    .split('\n\n')
-    .filter(pack => pack)
-    .map(pack => {
-      const name = parseName(pack)
-      const description = parseDescription(pack)
-      const dependencies = Array.from(new Set(parseDependencies(pack)))
-      return {
-        name,
-        description,
-        dependencies
-      }
+  try {
+    return fs
+      .readFileSync(fileName, 'utf8')
+      .split('\n\n')
+      .filter(pack => pack)
+      .map(pack => {
+        const name = parseName(pack)
+        const description = parseDescription(pack)
+        const dependencies = Array.from(new Set(parseDependencies(pack)))
+        return {
+          name,
+          description,
+          dependencies
+        }
 
-    })
+      })
+  } catch (error) {
+    console.log('EROOR');
+  }
+
 }
 
 const parseName = (pack) => {
