@@ -29,6 +29,26 @@ const SinglePackage = ({ packages, setMessage }) => {
     fetchData()
   }, [name])
 
+  const parseAlternates = (dependency) => {
+    const splitted = dependency.split('|').map(e => e.trim())
+    const found = packages.find(e => splitted.includes(e.name))
+    if (!found) {
+      return <div >{dependency}</div>
+    }
+    return (
+      <div className='GridItem'>
+        <Link to={`${found.name}`}>
+          {found.name}
+        </Link>
+        {splitted.filter(e => e !== found.name)
+          .map((e, i) => {
+            return (
+              <span key={i}> | {e}</span>
+            )
+          })}
+      </div>
+    )
+  }
 
 
   if (loading) {
@@ -40,8 +60,9 @@ const SinglePackage = ({ packages, setMessage }) => {
 
         <h2>Description</h2>
         <div>{pack.description
+          .replace(/^ \./gm, ' ')
           .split('\n')
-          .map((line, i) => <div key={i}>{line}</div>)}
+          .map((line, i) => <pre key={i}>{line}</pre>)}
         </div>
 
         <h2>Dependencies</h2>
@@ -49,14 +70,7 @@ const SinglePackage = ({ packages, setMessage }) => {
           {pack.dependencies
             .map((dependency, i) => {
               if (dependency.includes('|')) {
-                const splitted = dependency.split('|').map(e => e.trim())
-                const found = packages.find(e => splitted.includes(e.name))
-                if (!found) {
-                  console.log(splitted);
-                  return <div key={i}></div>
-                }
-                console.log(splitted.filter(e => e !== found.name));
-                dependency = found.name
+                return parseAlternates(dependency)
               }
               return (
                 <Link className='GridItem' key={i} to={`${dependency}`}>

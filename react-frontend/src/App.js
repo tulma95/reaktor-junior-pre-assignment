@@ -24,7 +24,6 @@ const App = () => {
     setPackages(data)
   }
 
-
   return (
     <div className="App">
 
@@ -32,7 +31,7 @@ const App = () => {
         <Link to='/'>
           <button>
             Back to index
-            </button>
+          </button>
         </Link>
         <h2>Package viewer</h2>
         <div>
