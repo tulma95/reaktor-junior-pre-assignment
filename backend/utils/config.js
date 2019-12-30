@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 let PATH
-if (process.env.HEROKU === 1) {
+if (process.env.HEROKU === 'yes') {
   PATH = path.resolve(__dirname, `../statustest.txt`)
 } else {
   PATH = fs.existsSync('/var/lib/dpkg/status') ?
