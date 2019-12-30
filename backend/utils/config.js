@@ -6,9 +6,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
-const PATH = fs.existsSync('/var/lib/dpkg/status') ?
-  '/var/lib/dpkg/status' : path.resolve(__dirname, `../statustest.txt`)
+// const PATH = fs.existsSync('/var/lib/dpkg/status') ?
+// '/var/lib/dpkg/status' : path.resolve(__dirname, `../statustest.txt`)
 
+const PATH = path.resolve(__dirname, `../statustest.txt`)
 
 let PORT = process.env.PORT
 
