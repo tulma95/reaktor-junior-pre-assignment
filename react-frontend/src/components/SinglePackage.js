@@ -30,20 +30,23 @@ const SinglePackage = ({ packages, setMessage }) => {
   }, [name])
 
   const parseAlternates = (dependency) => {
-    const splitted = dependency.split('|').map(e => e.trim())
-    const found = packages.find(e => splitted.includes(e.name))
+    const splitted = dependency.split('|')
+      .map(e => e.trim())
+
+    const found = packages.find(pack => splitted.includes(pack.name))
+
     if (!found) {
-      return <div >{dependency}</div>
+      return <div>{dependency}</div>
     }
     return (
       <div className='GridItem'>
         <Link to={`${found.name}`}>
           {found.name}
         </Link>
-        {splitted.filter(e => e !== found.name)
-          .map((e, i) => {
+        {splitted.filter(dependency => dependency !== found.name)
+          .map((dependency, i) => {
             return (
-              <span key={i}> | {e}</span>
+              <span key={i}> | {dependency}</span>
             )
           })}
       </div>
@@ -75,15 +78,16 @@ const SinglePackage = ({ packages, setMessage }) => {
               return (
                 <Link className='GridItem' key={i} to={`${dependency}`}>
                   <div>{dependency}</div>
-                </Link>)
+                </Link>
+              )
             })}
         </div>
 
         <h2>Dependants</h2>
         <div className='Grid'>
-          {pack.dependants.map((e, i) => (
-            <Link className='GridItem' key={i} to={`${e}`}>
-              <div >{e}</div>
+          {pack.dependants.map((dependant, i) => (
+            <Link className='GridItem' key={i} to={`${dependant}`}>
+              <div >{dependant}</div>
             </Link>
           ))}
         </div>
