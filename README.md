@@ -1,6 +1,6 @@
 # Status file parser
 
-Application parses status file found at '/var/lib/dpkg/status' and makes HTML interface to inspect packages. If the application can't find that file it uses mockStatus.txt instead.
+Application parses status file found at '/var/lib/dpkg/status' and makes HTML interface to inspect packages. If the application can't find that file it uses statusMock.txt instead.
 
 Frontend is made with React and backend is made with node.js
 
