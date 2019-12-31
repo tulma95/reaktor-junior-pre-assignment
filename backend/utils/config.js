@@ -7,15 +7,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 let PATH
 if (process.env.HEROKU === 'yes') {
-  path.resolve(__dirname, `../statusMock.txt`)
+  PATH = path.resolve(__dirname, `../statusMock.txt`)
 } else {
   PATH = fs.existsSync('/var/lib/dpkg/status') ?
     '/var/lib/dpkg/status' : path.resolve(__dirname, `../statusMock.txt`)
 }
 
-
-
-let PORT = process.env.PORT
+let PORT = process.env.PORT || 3003
 
 module.exports = {
   PORT,
