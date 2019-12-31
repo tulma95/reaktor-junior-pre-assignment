@@ -7,10 +7,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 let PATH
 if (process.env.HEROKU === 'yes') {
-  PATH = path.resolve('/var/lib/dpkg/status')
+  path.resolve(__dirname, `../statusMock.txt`)
 } else {
   PATH = fs.existsSync('/var/lib/dpkg/status') ?
-    '/var/lib/dpkg/status' : path.resolve(__dirname, `../statustest.txt`)
+    '/var/lib/dpkg/status' : path.resolve(__dirname, `../statusMock.txt`)
 }
 
 
