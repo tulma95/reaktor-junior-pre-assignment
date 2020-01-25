@@ -10,7 +10,8 @@
     "test": "jest",
     "watch": "nodemon backend/index.js",
     "start": "node backend",
-    "build": "npm install && cd react-frontend/ && npm install && npm run build"
+    "build": "npm install && cd react-frontend/ && npm install && npm run build",
+    "dev": "start npm run watch && cd react-frontend && start npm run start"
   },
   "cacheDirectories": [
     "node_modules",
