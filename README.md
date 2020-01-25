@@ -6,7 +6,7 @@ Frontend is made with React and backend is made with node.js
 
 ## Links
 
-[Heroku](https://limitless-wave-90268.herokuapp.com/)
+[Heroku](https://package-viewer-pro.herokuapp.com/)
 
 ## How to install and run
 
