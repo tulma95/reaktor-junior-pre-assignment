@@ -8,10 +8,10 @@ const parsePackageData = (fileName) => {
     .map(createPackageObject)
 }
 
-const createPackageObject = package => {
-  const name = parseName(package)
-  const description = parseDescription(package)
-  const dependencies = [...new Set(parseDependencies(package))]
+const createPackageObject = pack => {
+  const name = parseName(pack)
+  const description = parseDescription(pack)
+  const dependencies = [...new Set(parseDependencies(pack))]
   return {
     name,
     description,

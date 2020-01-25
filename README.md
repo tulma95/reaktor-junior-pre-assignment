@@ -1,6 +1,6 @@
 # Status file parser
 
-Application parses status file found at '/var/lib/dpkg/status' and makes HTML interface to inspect packages. If the application can't find that file it uses statusMock.txt instead.
+Application parses status file found at '/var/lib/dpkg/status' and makes HTML interface to inspect packages which are served from backend through rest API
 
 Frontend is made with React and backend is made with node.js
 
@@ -36,10 +36,3 @@ By default application runs in port 3003 but you can change it by making .env fi
 PORT=*your port*
 ```
 
-## Tests
-Backend tests are made with jest to prevent regression in file parsing. 
-
-Tests can be ran with command
-```
-npm test
-```
