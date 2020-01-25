@@ -27,28 +27,24 @@ const SinglePackage = ({ packages, setMessage }) => {
       }
     }
     fetchData()
-  }, [name])
+  }, [name, setMessage])
 
   const parseAlternates = (dependency) => {
-    const splitted = dependency.split('|')
+    const dependencies = dependency.split('|')
       .map(e => e.trim())
 
-    const found = packages.find(pack => splitted.includes(pack.name))
+    const found = packages.find(pack => dependencies.includes(pack.name))
 
-    if (!found) {
-      return <div>{dependency}</div>
-    }
+    if (!found) return <div key={dependency}>{dependency}</div>
+
     return (
       <div className='GridItem'>
         <Link to={`${found.name}`}>
           {found.name}
         </Link>
-        {splitted.filter(dependency => dependency !== found.name)
-          .map((dependency, i) => {
-            return (
-              <span key={i}> | {dependency}</span>
-            )
-          })}
+        {dependencies
+          .filter(dependency => dependency !== found.name)
+          .map((dependency, i) => <span key={i}> | {dependency}</span>)}
       </div>
     )
   }
@@ -91,7 +87,7 @@ const SinglePackage = ({ packages, setMessage }) => {
             </Link>
           ))}
         </div>
-      </div >
+      </div>
     )
   }
 }

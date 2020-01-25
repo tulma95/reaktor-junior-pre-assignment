@@ -11,7 +11,7 @@ const parsePackageData = (fileName) => {
 const createPackageObject = package => {
   const name = parseName(package)
   const description = parseDescription(package)
-  const dependencies = Array.from(new Set(parseDependencies(package)))
+  const dependencies = [...new Set(parseDependencies(package))]
   return {
     name,
     description,
@@ -23,7 +23,7 @@ const removeEmptyLines = line => line.length !== 0
 
 const parseName = pack => pack.match(/(?<=^Package: ).*/m)[0]
 
-const parseDependencies = (pack) => {
+const parseDependencies = pack => {
   const dependencies = pack.match(/(?<=^Depends: ).*/m)
   if (!dependencies) {
     return []
@@ -43,7 +43,7 @@ const removeVersionNumber = depend => {
 }
 
 
-const parseDescription = (pack) => {
+const parseDescription = pack => {
   const splits = pack.split(': ')
   if (descriptionIsLastAttribute(splits)) {
     return splits[splits.length - 1]
@@ -53,7 +53,10 @@ const parseDescription = (pack) => {
   }
 }
 
-const descriptionIsLastAttribute = splits => splits[splits.length - 2].includes('Description')
+const descriptionIsLastAttribute = splits => {
+  return splits[splits.length - 2].includes('Description')
+}
+
 module.exports = {
   parsePackageData,
   parseDependencies,

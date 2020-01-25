@@ -23,14 +23,15 @@ app.get('/api', (req, res) => {
 app.get('/api/:name', (req, res) => {
   const name = req.params.name
   const package = packages.find(e => e.name === name)
+
   if (package) {
     const dependants = packages
-      .filter(package => package.dependencies.includes(name))
-      .map(package => package.name)
+      .filter(ifDependenciesInclude(name))
+      .map(getName)
 
     const responsePackage = {
       ...package,
-      dependants: Array.from(new Set(dependants))
+      dependants: [...new Set(dependants)]
     }
     res.status(200).json(responsePackage)
   } else {
@@ -38,9 +39,15 @@ app.get('/api/:name', (req, res) => {
   }
 })
 
-app.get('*', function (request, response) {
-  response.sendFile(path.resolve(__dirname, '../react-frontend/build', 'index.html'));
-});
+const ifDependenciesInclude = name => package => {
+  return package.dependencies.includes(name)
+}
+
+const getName = package => package.name
+
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../react-frontend/build', 'index.html'));
+})
 
 app.listen(PORT, () => {
   console.log(`Listening port ${PORT}`);
