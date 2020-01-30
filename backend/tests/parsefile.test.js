@@ -1,7 +1,10 @@
-const { parseDescription, parseDependencies, parseName } = require('../utils/parseFile')
+const {
+  parseDescription,
+  parseDependencies,
+  parseName
+} = require('../utils/parseFile')
 
-const pack =
-  `
+const pack = `
 Package: memtest86+
 Status: install ok installed
 Priority: optional
@@ -36,8 +39,7 @@ Original-Maintainer: Yann Dirson <dirson@debian.org>
 
 describe('description', () => {
   test('is right with single pack', () => {
-    const description =
-      `thorough real-mode memory tester
+    const description = `thorough real-mode memory tester
  Memtest86+ scans your RAM for errors.
  .
  This tester runs independently of any OS - it is run at computer
@@ -58,8 +60,7 @@ describe('description', () => {
   })
 
   test('is right when description is last package attribute', () => {
-    const testPack =
-      `Package: libxau6
+    const testPack = `Package: libxau6
 Status: install ok installed
 Multi-Arch: same
 Priority: optional
@@ -82,8 +83,7 @@ Description: X11 authorisation library
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXau
 `
-    const expectedDesc =
-      `X11 authorisation library
+    const expectedDesc = `X11 authorisation library
  This package provides the main interface to the X11 authorisation handling,
  which controls authorisation for X connections, both client-side and
  server-side.
@@ -99,8 +99,7 @@ Description: X11 authorisation library
 })
 
 test('description is right with single pack', () => {
-  const description =
-    `thorough real-mode memory tester
+  const description = `thorough real-mode memory tester
  Memtest86+ scans your RAM for errors.
  .
  This tester runs independently of any OS - it is run at computer

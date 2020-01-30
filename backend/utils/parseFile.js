@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const parsePackageData = (fileName) => {
+const parsePackageData = fileName => {
   return fs
     .readFileSync(fileName, 'utf8')
     .split('\n\n')
@@ -28,20 +28,18 @@ const parseDependencies = pack => {
   if (!dependencies) {
     return []
   }
-  return dependencies[0]
-    .split(',')
-    .map(removeVersionNumber)
+  return dependencies[0].split(',').map(removeVersionNumber)
 }
 
 const removeVersionNumber = depend => {
   if (depend.includes('|')) {
-    return depend.split('|')
+    return depend
+      .split('|')
       .map(removeVersionNumber)
       .join(' | ')
   }
   return depend.replace(/ \(.*\)/, '').trim()
 }
-
 
 const parseDescription = pack => {
   const splits = pack.split(': ')
