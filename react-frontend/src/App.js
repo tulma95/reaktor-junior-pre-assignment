@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import {
-  Route,
-  Link
-} from "react-router-dom";
-import SinglePackage from './components/SinglePackage'
+import React, { useState, useEffect } from 'react'
+import './App.css'
+import { Route, Link } from 'react-router-dom'
+import SinglePackageView from './components/SinglePackageView'
 import PackageGrid from './components/PackageGrid'
 
 const App = () => {
@@ -15,9 +12,9 @@ const App = () => {
   }, [])
 
   const fetchData = async () => {
-    const res = await fetch("/api", {
+    const res = await fetch('/api', {
       headers: {
-        "accepts": "application/json"
+        accepts: 'application/json'
       }
     })
     const data = await res.json()
@@ -25,28 +22,23 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-
-      <div className="Header">
+    <div className='App'>
+      <div className='Header'>
         <Link to='/'>
-          <button>
-            Back to index
-          </button>
+          <button>Back to index</button>
         </Link>
         <h2>Package viewer</h2>
-        <div>
-          {message}
-        </div>
+        <div>{message}</div>
       </div>
 
-      <Route exact path="/" >
+      <Route exact path='/'>
         <PackageGrid packages={packages} setMessage={setMessage} />
       </Route>
-      <Route path="/:name">
-        <SinglePackage packages={packages} setMessage={setMessage} />
+      <Route path='/:name'>
+        <SinglePackageView packages={packages} setMessage={setMessage} />
       </Route>
-    </div >
+    </div>
   )
 }
 
-export default App;
+export default App

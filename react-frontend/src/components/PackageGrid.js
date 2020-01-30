@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Link
-} from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const PackageGrid = ({ packages, setMessage }) => {
   setMessage(null)
@@ -18,13 +16,7 @@ const PackageGrid = ({ packages, setMessage }) => {
     )
   }
 
-  return (
-    <div className='IndexGrid'>
-      {packages
-        .sort(sortByName)
-        .map(pack)}
-    </div>
-  )
+  return <div className='IndexGrid'>{packages.sort(sortByName).map(pack)}</div>
 }
 
 export default PackageGrid

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-const SinglePackage = ({ packages, setMessage }) => {
+const SinglePackageView = ({ packages, setMessage }) => {
   const [pack, setPack] = useState()
   const [loading, setLoading] = useState(true)
   const { name } = useParams()
@@ -27,26 +27,25 @@ const SinglePackage = ({ packages, setMessage }) => {
 
   if (loading) return <div>Loading...</div>
 
-  const parseAlternates = dependency => {
-    const dependencies = dependency.split('|').map(e => e.trim())
+  const parseAlternates = (dependency, allPackages) => {
+    const alternateDeps = dependency.split(' | ')
+    const found = allPackages.find(pack => alternateDeps.includes(pack.name))
 
-    const found = packages.find(pack => dependencies.includes(pack.name))
-
-    if (!found)
+    if (!found) {
       return (
         <div className='GridItem' key={dependency}>
           {dependency}
         </div>
       )
+    }
+
+    const notFoundDependencies = alternateDeps
+      .filter(dependency => dependency !== found.name)
+      .join(' | ')
 
     return (
       <div key={dependency} className='GridItem'>
-        <Link to={`${found.name}`}>{found.name}</Link>
-        {dependencies
-          .filter(dependency => dependency !== found.name)
-          .map((dependency, i) => (
-            <span key={i}> | {dependency}</span>
-          ))}
+        <Link to={`${found.name}`}>{found.name}</Link> | {notFoundDependencies}
       </div>
     )
   }
@@ -65,6 +64,7 @@ const SinglePackage = ({ packages, setMessage }) => {
         <Dependencies
           dependencies={pack.dependencies}
           parseAlternates={parseAlternates}
+          allPackages={packages}
         />
       </div>
 
@@ -80,11 +80,10 @@ const SinglePackage = ({ packages, setMessage }) => {
   )
 }
 
-const Dependencies = ({ dependencies, parseAlternates }) => {
-  console.log(dependencies)
+const Dependencies = ({ dependencies, allPackages, parseAlternates }) => {
   return dependencies.map((dependency, i) => {
     if (dependency.includes('|')) {
-      return parseAlternates(dependency)
+      return parseAlternates(dependency, allPackages)
     }
     return (
       <Link className='GridItem' key={i} to={`${dependency}`}>
@@ -94,4 +93,4 @@ const Dependencies = ({ dependencies, parseAlternates }) => {
   })
 }
 
-export default SinglePackage
+export default SinglePackageView
