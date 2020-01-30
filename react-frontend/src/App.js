@@ -3,6 +3,7 @@ import './App.css'
 import { Route, Link } from 'react-router-dom'
 import SinglePackageView from './components/SinglePackageView'
 import PackageGrid from './components/PackageGrid'
+import packageService from './services/packageService'
 
 const App = () => {
   const [packages, setPackages] = useState([])
@@ -10,13 +11,8 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('/api', {
-        headers: {
-          accepts: 'application/json'
-        }
-      })
-      const data = await res.json()
-      setPackages(data)
+      const allPackages = await packageService.getAll()
+      setPackages(allPackages)
     }
     fetchData()
   }, [])

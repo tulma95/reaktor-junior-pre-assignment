@@ -18,7 +18,7 @@ const Dependencies = ({ dependencies, allPackages }) => {
       dependency => dependency !== found.name
     )
     return (
-      <PackageLink key={found.name} name={found.name} rest={restDependencies} />
+      <PackageLink key={dependency} name={found.name} rest={restDependencies} />
     )
   }
 
