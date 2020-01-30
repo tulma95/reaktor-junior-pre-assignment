@@ -5,9 +5,7 @@ const PackageLink = ({ name, rest }) => {
   const restString = rest && ` | ${rest.join(' | ')}`
   return (
     <div className='GridItem'>
-      <Link div='moro' a='moro' to={`${name}`}>
-        {name}
-      </Link>
+      <Link to={`${name}`}>{name}</Link>
       {restString}
     </div>
   )

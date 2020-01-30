@@ -5,7 +5,7 @@ const PackageGrid = ({ packages, setMessage }) => {
   setMessage(null)
 
   const sortByName = (pack1, pack2) => {
-    return pack1.name > pack2.name ? 1 : -1
+    return pack1.name.localeCompare(pack2.name)
   }
 
   const toListItem = pack => <PackageLink key={pack.name} name={pack.name} />

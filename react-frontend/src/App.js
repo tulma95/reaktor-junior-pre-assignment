@@ -7,19 +7,19 @@ import PackageGrid from './components/PackageGrid'
 const App = () => {
   const [packages, setPackages] = useState([])
   const [message, setMessage] = useState(null)
+
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/api', {
+        headers: {
+          accepts: 'application/json'
+        }
+      })
+      const data = await res.json()
+      setPackages(data)
+    }
     fetchData()
   }, [])
-
-  const fetchData = async () => {
-    const res = await fetch('/api', {
-      headers: {
-        accepts: 'application/json'
-      }
-    })
-    const data = await res.json()
-    setPackages(data)
-  }
 
   return (
     <div className='App'>
@@ -28,7 +28,7 @@ const App = () => {
           <button>Back to index</button>
         </Link>
         <h2>Package viewer</h2>
-        <div>{message}</div>
+        <div style={{ fontSize: '20px', color: 'red' }}>{message}</div>
       </div>
 
       <Route exact path='/'>
