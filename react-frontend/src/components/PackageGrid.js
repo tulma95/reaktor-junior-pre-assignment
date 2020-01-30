@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import PackageLink from './presentationals/PackageLink'
 
 const PackageGrid = ({ packages, setMessage }) => {
   setMessage(null)
@@ -8,15 +8,11 @@ const PackageGrid = ({ packages, setMessage }) => {
     return pack1.name > pack2.name ? 1 : -1
   }
 
-  const pack = pack => {
-    return (
-      <Link className='GridItem' key={pack.name} to={`${pack.name}`}>
-        <div>{pack.name}</div>
-      </Link>
-    )
-  }
+  const toListItem = pack => <PackageLink key={pack.name} name={pack.name} />
 
-  return <div className='IndexGrid'>{packages.sort(sortByName).map(pack)}</div>
+  return (
+    <div className='IndexGrid'>{packages.sort(sortByName).map(toListItem)}</div>
+  )
 }
 
 export default PackageGrid
